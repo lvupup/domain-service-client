@@ -1,0 +1,9 @@
+version: "3"
+services:
+  client-mongodb-lvupup-org:
+    image: domain-service-client-mongodb:${DB_TAG}
+    build:
+      context: ../
+      dockerfile: ./database/mongo/Dockerfile
+      args:
+        - git_commit
