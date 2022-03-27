@@ -1,0 +1,14 @@
+{
+  "name": "domain-service-client",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production node src/start.js",
+    "format": "prettier --write \"src/**/*.js\"",
+    "lint": "eslint \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "@0y0/eslint-config-vanilla": "1.3.1",
+    "eslint": "8.12.0",
+    "prettier": "2.6.1"
+  }
+}
