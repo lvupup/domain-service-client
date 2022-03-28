@@ -1,4 +1,7 @@
+const path = require('path')
+
 const isDev = process.env.NODE_ENV === 'development'
+const rootDir = path.join(__dirname, '../../')
 
 module.exports = {
   consul: {
@@ -9,5 +12,9 @@ module.exports = {
     override: isDev
       ? require(path.join(rootDir, 'config.development.json'))
       : null
+  },
+  paths: {
+    rootDir,
+    logDir: isDev ? path.join(rootDir, 'tmp/logs') : '/tmp/logs'
   }
 }
