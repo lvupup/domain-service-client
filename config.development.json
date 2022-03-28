@@ -1,0 +1,5 @@
+{
+  "Client": {
+    "MongoDbConnection": "mongodb://application-client:pass.123@127.0.0.1:27817"
+  }
+}
