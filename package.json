@@ -7,6 +7,8 @@
     "lint": "eslint \"src/**/*.js\""
   },
   "dependencies": {
+    "consul": "0.40.0",
+    "dotenv": "16.0.0",
     "module-alias": "2.2.2"
   },
   "devDependencies": {

@@ -1,0 +1,13 @@
+version: "3"
+services:
+  consul-lvupup-org:
+    container_name: consul-lvupup-org
+    image: consul:1.11.4
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./consul-init-setup.sh:/bin/consul-init-setup.sh
+      - ./kv:/etc/consul/kv
+    environment:
+      - INIT_CONSUL_KV_DIR=/etc/consul/kv
+    command: sh /bin/consul-init-setup.sh
