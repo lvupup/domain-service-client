@@ -1,1 +1,9 @@
-{}
+{
+  "Logging": {
+    "Enable": true,
+    "EnableLogFile": true,
+    "LogLevel": {
+      "Default": "info"
+    }
+  }
+}
