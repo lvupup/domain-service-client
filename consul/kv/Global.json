@@ -1,1 +1,8 @@
-{}
+{
+  "DomainService": {
+    "Client": {
+      "HostName": "client-ds-lvupup-org",
+      "Port": "20890"
+    }
+  }
+}
