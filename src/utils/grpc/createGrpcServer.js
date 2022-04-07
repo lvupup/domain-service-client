@@ -1,5 +1,6 @@
 const util = require('util')
 const grpc = require('@grpc/grpc-js')
+const { HealthService } = require('./health')
 
 function useInterceptorExtension(grpcServer) {
   const interceptors = []
@@ -24,6 +25,12 @@ function useInterceptorExtension(grpcServer) {
   }
 }
 
+function useHealthExtension(grpcServer) {
+  grpcServer.addHealthService = healthServiceImpl => {
+    grpcServer.addService(HealthService.service, healthServiceImpl)
+  }
+}
+
 function useAsyncExtension(grpcServer) {
   grpcServer.listenAsync = port =>
     new Promise((resolve, reject) =>
@@ -45,6 +52,7 @@ function useAsyncExtension(grpcServer) {
 module.exports = function createGrpcServer(options) {
   const grpcServer = new grpc.Server(options)
   useInterceptorExtension(grpcServer)
+  useHealthExtension(grpcServer)
   useAsyncExtension(grpcServer)
   return grpcServer
 }
