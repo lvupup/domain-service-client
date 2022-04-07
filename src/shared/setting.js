@@ -12,6 +12,8 @@ module.exports = {
   },
   paths: {
     rootDir,
+    protoDir: path.join(rootDir, 'protos'),
+    protoGlob: 'Client/*.proto',
     logDir: isDev ? path.join(rootDir, 'tmp/logs') : '/tmp/logs'
   }
 }
