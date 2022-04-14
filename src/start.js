@@ -8,6 +8,7 @@ const healthController = require('@app/controllers/healthController')
 const actionInterceptor = require('@app/interceptors/actionInterceptor')
 const exceptionInterceptor = require('@app/interceptors/exceptionInterceptor')
 const logInterceptor = require('@app/interceptors/logInterceptor')
+const mongoDb = require('@app/mongodb')
 const healthService = require('@app/services/healthService')
 const protos = require('@app/shared/protos')
 const setting = require('@app/shared/setting')
@@ -24,6 +25,8 @@ const logger = require('@app/utils/logger')
     logDir: setting.paths.logDir
   })
   try {
+    mongoDb.setupConnection()
+
     const grpcServer = createGrpcServer()
     grpcServer.addInterceptor(exceptionInterceptor)
     grpcServer.addInterceptor(logInterceptor)
@@ -36,7 +39,10 @@ const logger = require('@app/utils/logger')
     createTerminus(httpServer, {
       healthChecks: { '/health': healthService.check },
       signals: ['SIGINT', 'SIGTERM'],
-      beforeShutdown: () => grpcServer.tryShutdownAsync(),
+      beforeShutdown: async () => {
+        await grpcServer.tryShutdownAsync()
+        await mongoDb.disconnectAsync()
+      },
       onShutdown: () => logger.info('application shutdown'),
       logger: (message, error) =>
         logger.error({ message, error: CommonError.wrapError(error) })
