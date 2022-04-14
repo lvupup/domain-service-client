@@ -42,7 +42,14 @@ async function createTodoAsync({ title, description, isCompleted, items, order }
   return id
 }
 
-async function updateTodoAsync({ id, title, description, isCompleted, items, order }) {
+async function updateTodoAsync({
+  id,
+  title,
+  description,
+  isCompleted,
+  items,
+  order
+}) {
   const index = _todos.findIndex(record => record.id === id)
   if (index === -1) throw new CommonError('COMM0103')
   _todos[index] = {
